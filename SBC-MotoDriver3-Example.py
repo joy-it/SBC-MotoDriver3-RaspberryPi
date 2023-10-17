@@ -28,7 +28,7 @@ if __name__ == '__main__':
             SBC_MotoDriver3_Lib.allOn(False, True)
             time.sleep(1)
             SBC_MotoDriver3_Lib.allOff()
-            time.sleep(2)
+            time.sleep(1)
             # Switch on a specific output
             SBC_MotoDriver3_Lib.on(0)
             time.sleep(2)
@@ -48,12 +48,12 @@ if __name__ == '__main__':
             time.sleep(2)
             SBC_MotoDriver3_Lib.allOff()
             time.sleep(1)
-            print("Stepper")
-            # Let the stepper motor move the desired number of steps on the desired pins at the previously set speed.
-            SBC_MotoDriver3_Lib.Stepper(2000, 4, 5, 6, 7)
-            time.sleep(1)
+#            print("Stepper")
+#            # Let the stepper motor move the desired number of steps on the desired pins at the previously set speed.
+#            SBC_MotoDriver3_Lib.Stepper(2000, 4, 5, 6, 7)
+#            time.sleep(5)
             
-	except KeyboardInterrupt:
+    except KeyboardInterrupt:
         SBC_MotoDriver3_Lib.allOff()
         GPIO.cleanup()
         sys.exit(0)
