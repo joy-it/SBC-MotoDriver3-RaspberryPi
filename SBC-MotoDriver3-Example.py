@@ -1,7 +1,6 @@
 # Import all required libraries
 import SBC_MotoDriver3_Lib
 import time
-import RPi.GPIO as GPIO
 import sys
 
 # Main Loop
@@ -55,5 +54,4 @@ if __name__ == '__main__':
             
     except KeyboardInterrupt:
         SBC_MotoDriver3_Lib.allOff()
-        GPIO.cleanup()
         sys.exit(0)

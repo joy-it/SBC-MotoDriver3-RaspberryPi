@@ -1,6 +1,6 @@
 # Import of Librarys
 import time
-import RPi.GPIO as GPIO
+from gpiozero import OutputDevice
 import sys
 from smbus2 import SMBus
 
@@ -22,11 +22,10 @@ LEDOUT0 = 0x0C
 LEDOUT1 = 0x0D
 
 def init(address, oe_pin):
-    _oe_pin = oe_pin
+    global _oe_pin
+    global _address
+    _oe_pin = OutputDevice(oe_pin, active_high=True, initial_value=True)
     _address = address
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
-    GPIO.setup(_oe_pin, GPIO.OUT)
 
 # Writes to a register
 def write_reg(reg, val):
@@ -43,7 +42,7 @@ def soft_reset():
 
 # Sets up the whole chip and I2C connection
 def begin():
-    GPIO.output(_oe_pin, GPIO.LOW)
+    _oe_pin.off()
     time.sleep(0.01)
     write_reg(0x00, 0x01)
     time.sleep(0.0005)
@@ -109,9 +108,9 @@ def chanPwm(channel, value):
 # Uses the output enable pin to enable and disable all channels, doesn't effect the previous state.
 def enabled(state):
     if state:
-        GPIO.output(_oe_pin, GPIO.LOW)
+        _oe_pin.off()
     else:
-        GPIO.output(_oe_pin, GPIO.HIGH)
+        _oe_pin.on()
 
 # Turn a channel on
 def on(pin):
